@@ -1,0 +1,12 @@
+.Link{
+    width: 30%;
+}
+
+#links{
+    display: flex;
+    justify-content: space-around;
+}
+
+#links #link{
+    text-decoration: none;
+}

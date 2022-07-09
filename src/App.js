@@ -1,23 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import Home from "./components/Home";
+import About from "./components/About";
+import Contact from "./components/Contact";
+import Error from "./components/Error";
+import SharedLayout from "./components/SharedLayout";
+import { Routes, Route } from 'react-router-dom'
+import Products from "./components/Products";
+import SharedProducts from "./components/SharedProducts";
+import Login from "./components/Login";
+import Dashboard from "./components/Dashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
+import { useState } from 'react'
 
 function App() {
+  const [user, setUser] = useState('');
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Routes>
+        <Route path="/" element={<SharedLayout/>}>
+          <Route index element={<Home/>}/>
+          <Route path="/About" element={<About/>}/>
+          <Route path="/Contact" element={<Contact/>}/>
+          <Route path='*' element={<Error/>}/>
+          <Route path='/Products' element={<Products/>}/>
+          <Route path="/Products/:productId" element={<SharedProducts/>}/>
+          <Route path='/Login' element={<Login setUser={setUser}/>}/>
+          <Route path='/Dashboard' element={
+            <ProtectedRoute user={user}>
+              <Dashboard user={user}/>
+            </ProtectedRoute>
+          }/>
+        </Route>
+        
+      </Routes>
     </div>
   );
 }
